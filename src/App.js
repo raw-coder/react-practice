@@ -1,7 +1,4 @@
 import './App.css';
-import Hello from "./Hello";
-import Wrapper from "./wrapper";
-import Counter from "./Counter";
 import InputSample from "./InputSample";
 
 function App() {
@@ -14,15 +11,7 @@ function App() {
     }
 
     return (
-        <Wrapper>
-            <Hello name="react" color="red" isSpecial={true}/>
-            <Hello color="blue" isSpecial/>
-            <Hello color="green" isSpecial={false}/>
-            <div className="gray_box"></div>
-            <div style={style}>{name}</div>
-            <Counter/>
-            <InputSample/>
-        </Wrapper>
+        <InputSample/>
     );
 }
 
