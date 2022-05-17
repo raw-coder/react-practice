@@ -1,6 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 function User({user, onRemove, onToggle}) {
+    useEffect(() => {
+       console.log('User Component Mounted');
+       console.log(user);
+       return () => {
+           console.log('User Component Unmounted');
+           console.log(user);
+       }
+    }, [user]);
+
     return (
         <div>
             <b
