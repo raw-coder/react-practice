@@ -1,5 +1,6 @@
 import './App.css';
 import InputSample from "./InputSample";
+import UserList from "./UserList";
 
 function App() {
     const name = 'react';
@@ -11,7 +12,11 @@ function App() {
     }
 
     return (
-        <InputSample/>
+        <div>
+            <InputSample/>
+            <UserList/>
+        </div>
+
     );
 }
 
