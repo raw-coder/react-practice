@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 
-const User = React.memo(function({user, onRemove, onToggle}) {
+const User = React.memo(function ({user, onRemove, onToggle}) {
     useEffect(() => {
-       console.log('User Component Mounted');
-       console.log(user);
-       return () => {
-           console.log('User Component Unmounted');
-           console.log(user);
-       }
+        console.log('User Component Mounted');
+        console.log(user);
+        return () => {
+            console.log('User Component Unmounted');
+            console.log(user);
+        }
     }, [user]);
 
     return (
@@ -37,4 +37,7 @@ function UserList({users, onRemove, onToggle}) {
     );
 }
 
-export default React.memo(UserList);
+export default React.memo(
+    UserList,
+    (prevProps, nextProps) => prevProps.users === nextProps.users
+);
