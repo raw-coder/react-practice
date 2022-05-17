@@ -1,6 +1,7 @@
 import './App.css';
 import Hello from "./Hello";
 import Wrapper from "./wrapper";
+import Counter from "./Counter";
 
 function App() {
     const name = 'react';
@@ -18,6 +19,7 @@ function App() {
             <Hello color="green" isSpecial={false}/>
             <div className="gray_box"></div>
             <div style={style}>{name}</div>
+            <Counter/>
         </Wrapper>
     );
 }
