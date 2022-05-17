@@ -1,5 +1,6 @@
 import './App.css';
 import Hello from "./Hello";
+import Wrapper from "./wrapper";
 
 function App() {
     const name = 'react';
@@ -11,14 +12,12 @@ function App() {
     }
 
     return (
-        <div>
-            {/* comment */}
-            <Hello
-                // inline comment
-            />
+        <Wrapper>
+            <Hello name="react" color="red"/>
+            <Hello color="blue"/>
             <div className="gray_box"></div>
             <div style={style}>{name}</div>
-        </div>
+        </Wrapper>
     );
 }
 
