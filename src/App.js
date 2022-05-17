@@ -1,6 +1,6 @@
 import './App.css';
 import UserList from "./UserList";
-import {useMemo, useRef, useState} from "react";
+import {useCallback, useMemo, useRef, useState} from "react";
 import CreateUser from "./CreateUser";
 
 function countActiveUsers(users) {
@@ -15,13 +15,13 @@ function App() {
     });
 
     const {username, email} = inputs;
-    const onChange = e => {
+    const onChange = useCallback((e) => {
         const {name, value} = e.target;
         setInputs({
             ...inputs,
             [name]: value
         });
-    };
+    }, [inputs]);
 
     const [users, setUsers] = useState([
         {
@@ -45,7 +45,7 @@ function App() {
     ]);
 
     const nextId = useRef(4);
-    const onCreate = () => {
+    const onCreate = useCallback(() => {
         const user = {
             id: nextId.current,
             username,
@@ -58,15 +58,15 @@ function App() {
         });
 
         nextId.current += 1;
-    }
+    }, [users, username, email]);
 
-    const onRemove = id => {
+    const onRemove = useCallback((id) => {
         setUsers(users.filter(user => user.id !== id));
-    }
+    }, [users])
 
-    const onToggle = id => {
+    const onToggle = useCallback((id) => {
         setUsers(users.map(user => user.id === id ? {...user, active: !user.active} : user))
-    }
+    }, [users]);
 
     const count = useMemo(() => countActiveUsers(users), [users]);
 
