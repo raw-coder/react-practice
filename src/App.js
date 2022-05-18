@@ -1,6 +1,6 @@
 import './App.css';
 import UserList from "./UserList";
-import {useCallback, useMemo, useReducer, useRef, useState} from "react";
+import {createContext, useCallback, useMemo, useReducer, useRef} from "react";
 import CreateUser from "./CreateUser";
 import useInputs from "./hooks/useInputs";
 
@@ -58,6 +58,8 @@ function reducer(state, action) {
     }
 }
 
+export const UserDispatch = createContext(null);
+
 function App() {
     const [{username, email}, onChange, reset] = useInputs({
         username: '',
@@ -82,38 +84,19 @@ function App() {
         nextId.current += 1;
     }, [username, email]);
 
-    const onToggle = useCallback((id) => {
-        dispatch({
-            type: 'TOGGLE_USER',
-            id
-        });
-    }, []);
-
-    const onRemove = useCallback((id) => {
-        dispatch({
-            type: 'REMOVE_USER',
-            id
-        });
-    }, [])
-
     const count = useMemo(() => countActiveUsers(users), [users]);
 
     return (
-        <div>
+        <UserDispatch.Provider value={dispatch}>
             <CreateUser
                 username={username}
                 email={email}
                 onChange={onChange}
                 onCreate={onCreate}
             />
-            <UserList
-                users={users}
-                onToggle={onToggle}
-                onRemove={onRemove}
-            />
+            <UserList users={users}/>
             <div>Active Users : {count}</div>
-        </div>
-
+        </UserDispatch.Provider>
     );
 }
 
