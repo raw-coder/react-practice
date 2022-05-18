@@ -3,6 +3,7 @@ import UserList from "./UserList";
 import {createContext, useCallback, useMemo, useReducer, useRef} from "react";
 import CreateUser from "./CreateUser";
 import useInputs from "./hooks/useInputs";
+import ErrorBoundary from "./ErrorBoundary";
 
 function countActiveUsers(users) {
     console.log('Counting active users');
@@ -87,16 +88,20 @@ function App() {
     const count = useMemo(() => countActiveUsers(users), [users]);
 
     return (
-        <UserDispatch.Provider value={dispatch}>
-            <CreateUser
-                username={username}
-                email={email}
-                onChange={onChange}
-                onCreate={onCreate}
-            />
-            <UserList users={users}/>
-            <div>Active Users : {count}</div>
-        </UserDispatch.Provider>
+        <ErrorBoundary>
+            <UserDispatch.Provider value={dispatch}>
+                <CreateUser
+                    username={username}
+                    email={email}
+                    onChange={onChange}
+                    onCreate={onCreate}
+                />
+                {/* 고의로 error 발생 */}
+                <UserList />
+                {/*<UserList users={users}/>*/}
+                <div>Active Users : {count}</div>
+            </UserDispatch.Provider>
+        </ErrorBoundary>
     );
 }
 
